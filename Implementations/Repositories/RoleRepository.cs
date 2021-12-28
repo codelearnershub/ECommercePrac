@@ -39,6 +39,11 @@ namespace ECommerce.Implementations.Repositories
             return _context.Roles.ToList();
         }
 
+        public IList<Role> GetSelectedRoles(List<int> ids)
+        {
+            return _context.Roles.Where(a => ids.Contains(a.Id)).ToList();
+        }
+
         public Role Update(Role role)
         {
             _context.Roles.Update(role);

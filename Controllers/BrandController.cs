@@ -1,9 +1,12 @@
 ﻿using ECommerce.Interfaces.IServices;
 using ECommerce.Models;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,13 +17,16 @@ namespace ECommerce.Controllers
         private readonly IBrandService _brandService;
         private readonly IProductService _productService;
         private readonly IStoreService _storeService;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
 
-        public BrandController(IBrandService brandService , IProductService productService , IStoreService storeService)
+        public BrandController(IBrandService brandService , IProductService productService , IStoreService storeService, IWebHostEnvironment webHostEnvironment)
         {
             _brandService = brandService;
             _productService = productService;
             _storeService = storeService;
+            _webHostEnvironment = webHostEnvironment;
+
         }
 
         public IActionResult Index()
@@ -38,8 +44,21 @@ namespace ECommerce.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create (CreateBrandRequestModel model)
+        public IActionResult Create (CreateBrandRequestModel model, IFormFile imageFile)
         {
+            if(imageFile != null)
+            {
+                string imageDirectory = Path.Combine(_webHostEnvironment.WebRootPath, "images");
+                Directory.CreateDirectory(imageDirectory);
+                string contentType = imageFile.FileName.Split('.')[1];
+                string brandImage = $"ECM{Guid.NewGuid()}.{contentType}";
+                string fullPath = Path.Combine(imageDirectory, brandImage);
+                using (var fileStream = new FileStream(fullPath, FileMode.Create))
+                {
+                    imageFile.CopyTo(fileStream);
+                }
+                model.BrandImage = brandImage;
+            }
             _brandService.AddBrand(model);
             return RedirectToAction(nameof(Index));
 

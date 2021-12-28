@@ -1,6 +1,7 @@
 ﻿using ECommerce.Context;
 using ECommerce.Entities;
 using ECommerce.Interfaces.IRepositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,12 +32,17 @@ namespace ECommerce.Implementations.Repositories
 
         public User Get(int id)
         {
-            return _context.Users.Find(id);
+            return _context.Users.Include(a => a.UserRoles).ThenInclude(a => a.Role).SingleOrDefault(a =>a.Id == id);
         }
 
         public List<User> GetAll()
         {
-            return _context.Users.ToList();
+            return _context.Users.Include(a => a.UserRoles).ThenInclude(a => a.Role).ToList();
+        }
+
+        public User GetByEmail(string email)
+        {
+            return _context.Users.SingleOrDefault(a => a.Email == email);
         }
 
         public User Update(User user)

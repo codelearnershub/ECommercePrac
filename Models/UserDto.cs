@@ -28,7 +28,8 @@ namespace ECommerce.Models
         public string Password { get; set; }
         public string PhoneNumber { get; set; }
         public string Address { get; set; }
-        public int StoreId { get; set; }
+        public int StoreId{ get; set; }
+        public List<int> Roles { get; set; } = new List<int>();
     }
 
     public class UpdateUserRequestModel

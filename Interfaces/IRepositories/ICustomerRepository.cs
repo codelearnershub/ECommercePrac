@@ -13,5 +13,6 @@ namespace ECommerce.Interfaces.IRepositories
         Customer Get(int id);
         List<Customer> GetAll();
         void Delete(Customer customer);
+        Customer GetByEmail(string email);
     }
 }

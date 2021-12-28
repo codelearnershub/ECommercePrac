@@ -12,7 +12,7 @@
         Image:
     </dt>
     <dd class="col-sm-10">
-        @Model.BrandImage
+        <img class="card-img" style="height:200px; width:200px" src="~/images/@Model.BrandImage" />
     </dd>
     <dt class="col-sm-2">
         Brand Status:
@@ -32,12 +32,12 @@
     <dd class="col-sm-10">
         @Model.SKU
     </dd>
-    <dt class="col-sm-2">
-        Stores:
-    </dt>
-    <dd class="col-sm-10">
-        @Model.Stores
-    </dd>
+    <dt>Store Name</dt>
+    @foreach(var store in Model.Stores)
+    {
+        
+        <dd>@store.StoreName</dd>
+    }
 
 </dl>
 

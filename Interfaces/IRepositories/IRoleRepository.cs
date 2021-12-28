@@ -13,5 +13,6 @@ namespace ECommerce.Interfaces.IRepositories
         Role Get(int id);
         List<Role> GetAll();
         void Delete(Role role);
+        IList<Role> GetSelectedRoles(List<int> ids);
     }
 }

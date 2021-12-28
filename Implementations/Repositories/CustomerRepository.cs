@@ -39,6 +39,11 @@ namespace ECommerce.Implementations.Repositories
             return _context.Customers.ToList();
         }
 
+        public Customer GetByEmail(string email)
+        {
+            return _context.Customers.SingleOrDefault(a => a.Email == email);
+        }
+
         public Customer Update(Customer customer)
         {
             _context.Customers.Update(customer);
