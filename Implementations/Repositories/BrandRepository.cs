@@ -18,6 +18,12 @@ namespace ECommerce.Implementations.Repositories
             _context = context;
         }
 
+        public bool BrandExists(string brandName)
+        {
+            return _context.Brands.Any(a => a.BrandName == brandName);
+           
+        }
+
         public Brand Create(Brand brand)
         {
             _context.Brands.Add(brand);
@@ -33,12 +39,30 @@ namespace ECommerce.Implementations.Repositories
 
         public Brand Get(int id)
         {
-            return _context.Brands.Find(id);
+            return _context.Brands
+                .Include(a => a.OrderBrands).ThenInclude(b => b.Order)
+                .Include(a => a.StoreBrands).ThenInclude(c => c.Store)
+                .Include(a => a.Product)
+                .SingleOrDefault(d => d.Id == id);
         }
 
         public List<Brand> GetAll()
         {
-            return _context.Brands.ToList();
+            return _context.Brands
+                .Include(a => a.OrderBrands).ThenInclude(b => b.Order)
+                .Include(a => a.StoreBrands).ThenInclude(c => c.Store)
+                .Include(a => a.Product).ToList();
+        }
+
+        public Brand GetByBrandName(string brandName)
+        {
+            return _context.Brands.SingleOrDefault(a => a.BrandName == brandName);
+
+        }
+
+        public IQueryable<Brand> Query<T>()
+        {
+            return _context.Brands.AsQueryable();
         }
 
         public Brand Update(Brand brand)

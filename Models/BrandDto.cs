@@ -17,6 +17,7 @@ namespace ECommerce.Models
         public decimal Price { get; set; }
         public BrandStatus BrandStatus { get; set; }
         public string BrandImage { get; set; }
+        public DateTime DateAdded { get; set; }
         public List<StoreDto> Stores { get; set; } = new List<StoreDto>();
         public List<OrderDto> Orders { get; set; } = new List<OrderDto>();
     }
@@ -28,6 +29,7 @@ namespace ECommerce.Models
         public string SKU { get; set; }
         public decimal Price { get; set; }
         public string BrandImage { get; set; }
+        public List<int> Stores { get; set; } = new List<int>();
     }
 
     public class UpdateBrandRequestModel
@@ -35,6 +37,7 @@ namespace ECommerce.Models
         public string BrandName { get; set; }
         public decimal Price { get; set; }
         public string BrandImage { get; set; }
+      
     }
 
 

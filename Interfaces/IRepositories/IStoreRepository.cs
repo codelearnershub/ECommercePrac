@@ -13,5 +13,6 @@ namespace ECommerce.Interfaces.IRepositories
         Store Get(int id);
         List<Store> GetAll();
         void Delete(Store store);
+        List<Store> GetSelectedStores(List<int> Ids);
     }
 }

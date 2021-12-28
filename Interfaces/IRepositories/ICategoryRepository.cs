@@ -13,5 +13,7 @@ namespace ECommerce.Interfaces.IRepositories
         Category Get(int id);
         List<Category> GetAll();
         void Delete(Category category);
+        bool CategoryExists(string categoryName);
+        IList<Category> GetSelectedCategories(List<int> ids);
     }
 }

@@ -13,5 +13,8 @@ namespace ECommerce.Interfaces.IRepositories
         Brand Get(int id);
         List<Brand> GetAll();
         void Delete(Brand brand);
+        Brand GetByBrandName(string brandName);
+        bool BrandExists(string brandName);
+        IQueryable<Brand> Query<T>();
     }
 }

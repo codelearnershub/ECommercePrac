@@ -1,0 +1,20 @@
+﻿@model ECommerce.Models.StoreDto
+
+
+<dl class="row">
+    <dt class="col-sm-2">
+        Name:
+    </dt>
+    <dd class="col-sm-10">
+        @Model.StoreName
+    </dd>
+    <dt class="col-sm-2">
+        Code:
+    </dt>
+    <dd class="col-sm-10">
+        @Model.Address
+    </dd>
+
+</dl>
+
+<button style="background-color:darkblue;"><a asp-action="Index">Back to List</a></button>

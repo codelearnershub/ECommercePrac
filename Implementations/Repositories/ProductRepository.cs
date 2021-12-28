@@ -1,6 +1,7 @@
 ﻿using ECommerce.Context;
 using ECommerce.Entities;
 using ECommerce.Interfaces.IRepositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,12 +33,19 @@ namespace ECommerce.Implementations.Repositories
 
         public Product Get(int id)
         {
-            return _context.Products.Find(id);
+            return _context.Products.Include(a => a.ProductCategories)
+                .ThenInclude(a => a.Category).SingleOrDefault(a => a.Id == id);
         }
 
         public List<Product> GetAll()
         {
-            return _context.Products.ToList();
+            return _context.Products.Include(a => a.ProductCategories)
+                .ThenInclude(a => a.Category).ToList();
+        }
+
+        public bool ProductExists(string productName)
+        {
+            return _context.Products.Any(a => a.ProductName == productName);
         }
 
         public Product Update(Product product)

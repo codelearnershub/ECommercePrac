@@ -1,6 +1,7 @@
 ﻿using ECommerce.Context;
 using ECommerce.Entities;
 using ECommerce.Interfaces.IRepositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,12 @@ namespace ECommerce.Implementations.Repositories
         {
             _context = context;
         }
+
+        public bool CategoryExists(string categoryName)
+        {
+            return _context.Categories.Any(a => a.CategoryName == categoryName);
+        }
+
         public Category Create(Category category)
         {
             _context.Categories.Add(category);
@@ -31,12 +38,19 @@ namespace ECommerce.Implementations.Repositories
 
         public Category Get(int id)
         {
-            return _context.Categories.Find(id);
+            return _context.Categories.Include(a => a.ProductCategories)
+                 .ThenInclude(b => b.Product).ThenInclude(b => b.Brands).SingleOrDefault(a => a.Id == id);
         }
 
         public List<Category> GetAll()
         {
-            return _context.Categories.ToList();
+            return _context.Categories.Include(a => a.ProductCategories)
+                .ThenInclude(b => b.Product).ThenInclude(b => b.Brands).ToList();
+        }
+
+        public IList<Category> GetSelectedCategories(List<int> ids)
+        {
+            return _context.Categories.Where(a => ids.Contains(a.Id)).ToList();
         }
 
         public Category Update(Category category)

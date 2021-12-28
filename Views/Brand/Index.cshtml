@@ -1,0 +1,84 @@
+﻿@model IEnumerable<ECommerce.Models.BrandDto>
+
+
+
+
+<div class="card-header" style="background-color:midnightblue;">
+    <div class="card-title">
+        <h1 class="text-center">Brands</h1>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.BrandName)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SKU)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BrandStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BrandImage)
+            </th>
+
+
+            <th>
+                Update
+            </th>
+            <th>
+                Details
+            </th>
+            <th>
+                Delete
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var brand in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => brand.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => brand.BrandName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => brand.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => brand.SKU)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => brand.BrandStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => brand.BrandImage)
+            </td>
+
+            <td>
+                <a asp-action="Update" asp-route-id="@brand.Id">Update</a>
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@brand.Id">Details</a>
+            </td>
+            <td>
+                <a asp-action="Delete" asp-route-id="@brand.Id">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<button style="background-color:wheat;"><a asp-controller="Brand" asp-action="Create">Add Brand</a> </button>

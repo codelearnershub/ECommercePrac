@@ -36,7 +36,7 @@ namespace ECommerce.Implementations.Repositories
 
         public List<Role> GetAll()
         {
-            return _context.Rolles.ToList();
+            return _context.Roles.ToList();
         }
 
         public Role Update(Role role)

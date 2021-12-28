@@ -39,6 +39,11 @@ namespace ECommerce.Implementations.Repositories
             return _context.Stores.ToList();
         }
 
+        public List<Store> GetSelectedStores(List<int> ids)
+        {
+            return _context.Stores.Where(a => ids.Contains(a.Id)).ToList();
+        }
+
         public Store Update(Store store)
         {
             _context.Stores.Update(store);

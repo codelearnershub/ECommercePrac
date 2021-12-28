@@ -1,4 +1,8 @@
 using ECommerce.Context;
+using ECommerce.Implementations.Repositories;
+using ECommerce.Implementations.Service;
+using ECommerce.Interfaces.IRepositories;
+using ECommerce.Interfaces.IServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +32,14 @@ namespace ECommerce
             services.AddDbContext<ApplicationContext>(options =>
                     options.UseMySQL(Configuration.GetConnectionString("ConnectionContext")));
             services.AddControllersWithViews();
+            services.AddScoped<IStoreRepository, StoreRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IBrandRepository, BrandRepository>();
+            services.AddScoped<IStoreService, StoreService>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IBrandService, BrandService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,0 +1,67 @@
+﻿@model IEnumerable<ECommerce.Models.StoreDto>
+
+
+
+
+<div class="card-header" style="background-color:midnightblue;">
+    <div class="card-title">
+        <h1 class="text-center">Brands</h1>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.StoreName)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+           
+
+            <th>
+                Update
+            </th>
+            <th>
+                Details
+            </th>
+            <th>
+                Delete
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var Store in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Store.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Store.StoreName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Store.Address)
+            </td>
+         
+
+            <td>
+                <a asp-action="Update" asp-route-id="@Store.Id">Update</a>
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@Store.Id">Details</a>
+            </td>
+            <td>
+                <a asp-action="Delete" asp-route-id="@Store.Id">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<button style="background-color:wheat;"><a asp-controller="Store" asp-action="Create">Add Store</a> </button>

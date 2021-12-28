@@ -13,5 +13,6 @@ namespace ECommerce.Interfaces.IRepositories
         Product Get(int id);
         List<Product> GetAll();
         void Delete(Product product);
+        bool ProductExists(string productName);
     }
 }
